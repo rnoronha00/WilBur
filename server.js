@@ -11,7 +11,13 @@ var model = "https://api.projectoxford.ai/luis/v1/application?id=c413b2ef-382c-4
 var luisDialog = new builder.LuisDialog(model);
 
 //var weatherBot = new builder.TextBot(userWelcomeMessage = "Hi! I'm a WeatherBot. But you can call me WilBur.");
-var weatherBot = new builder.BotConnectorBot();
+var botConnectorOptions = {
+    appId: process.env.BOTFRAMEWORK_APPID,
+    appSecret: process.env.BOTFRAMEWORK_APPSECRET
+};
+
+
+var weatherBot = new builder.BotConnectorBot(botConnectorOptions);
 weatherBot.add("/", luisDialog);
 
 luisDialog.onBegin(function(session) {
@@ -149,4 +155,8 @@ server.listen(process.env.port || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
 
-//weatherBot.listenStdin();
+// Serve a static web page
+server.get(/.*/, restify.serveStatic({
+    'directory': '.',
+    'default': 'index.html'
+}));
