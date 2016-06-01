@@ -142,7 +142,7 @@ weatherBot.add("/profile", [
     }
 ]);
 
-server.use(weatherBot.verifyBotFramework({ appId: 'weatherbot', appSecret: 'weatherbot' }));
+server.use(weatherBot.verifyBotFramework({ appId: 'WilBurWeatherBot', appSecret: '3a433634e85b459c91786c97c1e5d8b0' }));
 server.post('/api/messages', weatherBot.verifyBotFramework(), weatherBot.listen());
 
 server.listen(process.env.port || 3978, function () {
